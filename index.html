@@ -6,6 +6,19 @@
 <title>ครูก้อง AI Prompt | แหล่งรวม Prompt สำหรับครูยุคใหม่</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700;900&family=Kanit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  .prompt-preview-img {
+  width: 100%;           /* รูปกว้างเต็มกล่อง */
+  height: 180px;         /* กำหนดความสูงคงที่ */
+  object-fit: cover;     /* ให้รูปตัดพอดี ไม่เบี้ยว */
+  border-radius: 8px 8px 0 0; /* มนเฉพาะมุมบน */
+  display: block;
+  border-bottom: 1px solid #eee;
+}
+
+.card {
+  overflow: hidden;      /* ป้องกันรูปล้นขอบการ์ด */
+  /* สไตล์การ์ดเดิมของคุณ... */
+}
   :root {
     --primary: #1a56c4;
     --primary-dark: #0d3a8a;
@@ -554,6 +567,7 @@ const prompts = [
   {
     id: 1, cat: 'plan', title: 'สร้างแผนการสอน 1 สัปดาห์', badge: 'hot',
     desc: 'สร้างแผนการสอนที่มีกิจกรรม สื่อ และการประเมินครบถ้วน พร้อมจุดประสงค์และตัวชี้วัด',
+    img: 'images/sample-plan.png',
     rating: 4.9, copies: 892,
     prompt: `สร้างแผนการสอนประจำสัปดาห์สำหรับวิชา [ชื่อวิชา] ชั้น [ระดับชั้น]
 หัวข้อ: [หัวข้อ]
@@ -713,6 +727,21 @@ const resources = [
   { icon: '🏫', bg: '#f0fdf4', title: 'Prompt: PA และแฟ้มผลงานครู', sub: 'Google Docs', url: '#' }
 ];
 
+// ตัวอย่างโค้ดในฟังก์ชันแสดงผล (สมมติชื่อฟังก์ชัน renderCards)
+function renderCards(data) {
+  const container = document.getElementById('cards-container');
+  container.innerHTML = data.map(item => `
+    <div class="card">
+      ${item.img ? `<img src="${item.img}" alt="${item.title}" class="prompt-preview-img">` : ''}
+      
+      <div class="card-content">
+        <span class="badge">${item.badge}</span>
+        <h3>${item.title}</h3>
+        <p>${item.desc}</p>
+        </div>
+    </div>
+  `).join('');
+}
 // ===== RENDER =====
 function renderPrompts(cat) {
   const grid = document.getElementById('prompt-grid');
